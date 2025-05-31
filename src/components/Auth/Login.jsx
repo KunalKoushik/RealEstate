@@ -65,7 +65,7 @@ const Login = () => {
         //store user details in local storage
         localStorage.setItem("user",JSON.stringify(user));
         if(decodedToken.accountType === "Admin") {
-          navigate("/admin")
+          navigate("/admin/dashboard")
         }else{
           navigate("/"); // Navigate to the home page or dashboard
         }

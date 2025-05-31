@@ -2,7 +2,7 @@ const { auth } = require("../middlewares/auth")
 // createproperty
 
 const express = require("express");
-const {
+const {countTotalProperties,
     createProperty,
     getAllProperties,
     getPropertyById,
@@ -25,6 +25,7 @@ router.post('/filter', filterProperties); // POST request to filter properties
 // Route to send OTP
 
 router.post("/createProperty", auth, createProperty);
+router.get("/getAllPropertiesCount", countTotalProperties);
 router.get("/getAllProperties", getAllProperties);
 router.get("/getPropertyById:id", getPropertyById);
 router.put("/updateProperty", updateProperty);
