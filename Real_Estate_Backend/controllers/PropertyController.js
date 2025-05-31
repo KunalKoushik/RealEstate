@@ -4,6 +4,20 @@ const { uploadImageToCloudinary } = require("../utils/imageUploader");
 // const fs = require('fs');
 // const path = require('path');
 
+
+// Controller to count total properties
+exports.countTotalProperties = async (req, res) => {
+  try {
+    const totalProperties = await Property.countDocuments();
+    res.status(200).json({ totalProperties });
+  } catch (error) {
+    console.error("Error counting properties:", error);
+    res.status(500).json({ message: "Server error while counting properties." });
+  }
+};
+
+
+
 exports.createProperty = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -106,7 +120,7 @@ exports.getAllProperties = async (req, res) => {
           select: "firstName lastName email", // Select the user details (name, email)
         },
       });
-    res.status(200).json({ success: true, properties });
+    res.status(200).json({ success: true, properties: properties });
   } catch (error) {
     console.error("Error fetching properties:", error);
     res.status(500).json({

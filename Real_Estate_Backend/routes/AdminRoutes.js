@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 // Controllers
-const { getAllUsers,
+const { 
+    countTotalUsers,
+    getAllUsers,
     getUserById,
     toggleUserActivation,
     deleteUser,
@@ -18,6 +20,8 @@ const { getAllUsers,
 
 
 // USER MANAGEMENT
+
+router.get("/countUsers", countTotalUsers);
 router.get("/users", getAllUsers);
 router.get("/user/:id", getUserById);
 router.put("/user/:id/activate", toggleUserActivation);

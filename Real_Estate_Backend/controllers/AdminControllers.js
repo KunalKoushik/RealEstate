@@ -1,5 +1,17 @@
 const User = require("../models/User");
 
+// Controller to count total users
+exports.countTotalUsers = async (req, res) => {
+  try {
+    const totalUsers = await User.countDocuments();
+    res.status(200).json({ totalUsers });
+  } catch (error) {
+    console.error("Error counting users:", error);
+    res.status(500).json({ message: "Server error while counting users." });
+  }
+};
+
+
 
 
 exports.adminLogout = (req, res) => {
@@ -15,7 +27,9 @@ exports.adminLogout = (req, res) => {
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.find({}).populate("profile");
-    res.status(200).json(users);
+    res.status(200).json(
+     { users: users}
+    );
   } catch (err) {
     res.status(500).json({ message: "Failed to fetch users" });
   }

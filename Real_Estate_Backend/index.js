@@ -51,6 +51,7 @@ app.use("/api/v1/review", reviewRoutes);
 
 app.use("/api/v1/profile", profileRoutes);
 app.use("/api/v1/admin", AdminRoutes);
+app.use("/api/v1/admin", propertyRoutes);
 
 
 // Testing the server
