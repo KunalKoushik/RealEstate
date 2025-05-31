@@ -1,0 +1,10 @@
+@import "tailwindcss";
+*{
+    margin:2;
+    padding:2;
+}
+
+body{
+    background-color: rgb(243,243,243);
+    overflow-x: hidden;
+}
