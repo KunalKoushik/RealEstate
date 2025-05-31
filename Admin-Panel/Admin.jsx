@@ -35,13 +35,10 @@ const Admin = () => {
 
   return (
     <DarkModeProvider>
-      {/* <Routes>
+      <Routes>
 
-       <Route path="*" element={<DashboardPage/>} />
-
-      </Routes> */}
-      <DashboardPage/>
-      
+  <Route path="/*" element={<DashboardPage />} />
+</Routes>
     </DarkModeProvider>
   );
 };
