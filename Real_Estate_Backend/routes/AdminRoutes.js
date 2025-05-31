@@ -2,15 +2,23 @@ const express = require("express");
 const router = express.Router();
 
 // Controllers
-const {getAllUsers,getUserById,toggleUserActivation,deleteUser,
-getAllProperties,getPropertyById,verifyProperty,updateProperty,deleteProperty,
-getAllPurchases,getPurchaseById,
-getAdminStats} = require("../controllers/AdminControllers");
+const { getAllUsers,
+    getUserById,
+    toggleUserActivation,
+    deleteUser,
+    getAllProperties,
+    getPropertyById,
+    verifyProperty,
+    updateProperty,
+    deleteProperty,
+    getAllPurchases,
+    getPurchaseById,
+    getAdminStats } = require("../controllers/AdminControllers");
 
 
 
 // USER MANAGEMENT
-router.get("/users",getAllUsers);
+router.get("/users", getAllUsers);
 router.get("/user/:id", getUserById);
 router.put("/user/:id/activate", toggleUserActivation);
 router.delete("/user/:id", deleteUser);
@@ -27,6 +35,6 @@ router.get("/purchases", getAllPurchases);
 router.get("/purchase/:id", getPurchaseById);
 
 // DASHBOARD STATS
-router.get("/stats",getAdminStats);
+router.get("/stats", getAdminStats);
 
 module.exports = router;
