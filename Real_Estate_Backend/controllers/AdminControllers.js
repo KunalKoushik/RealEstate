@@ -1,27 +1,14 @@
 const User = require("../models/User");
 
 
-// // Admin Login
-// exports.adminLogin = async (req, res) => {
-//   const { email, password } = req.body;
 
-//   if (email !== process.env.ADMIN_EMAIL || password !== process.env.ADMIN_PASSWORD) {
-//     return res.status(401).json({ message: "Invalid credentials" });
-//   }
-
-//   // Simulate session or JWT logic
-//   req.session.admin = true;
-//   res.status(200).json({ message: "Admin logged in" });
+// exports.adminLogout = (req, res) => {
+//   req.session.destroy((err) => {
+//     if (err) return res.status(500).json({ message: "Logout failed" });
+//     res.clearCookie("connect.sid");
+//     res.status(200).json({ message: "Logged out successfully" });
+//   });
 // };
-
-// Admin Logout
-exports.adminLogout = (req, res) => {
-  req.session.destroy((err) => {
-    if (err) return res.status(500).json({ message: "Logout failed" });
-    res.clearCookie("connect.sid");
-    res.status(200).json({ message: "Logged out successfully" });
-  });
-};
 
 
 // Get all users
