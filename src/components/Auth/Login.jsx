@@ -54,15 +54,21 @@ const Login = () => {
 
       if (response.data.success) {
         // Login successful
-        const {token , user} = response.data;
-        
+        const {token , user, } = response.data;
+        console.log("token", token)
+
+      const decodedToken = jwtDecode(token); // Decode JWT
+        console.log(decodedToken.accountType)
         //store token in local storage
         localStorage.setItem("token",token);
         localStorage.setItem("userId",user._id);
         //store user details in local storage
         localStorage.setItem("user",JSON.stringify(user));
-        
-        navigate("/"); // Navigate to the home page or dashboard
+        if(decodedToken.accountType === "Admin") {
+          navigate("/admin")
+        }else{
+          navigate("/"); // Navigate to the home page or dashboard
+        }
       } else {
         // Login failed
         setError(response.data.message || "Invalid email or password.");
@@ -124,15 +130,7 @@ const Login = () => {
               )}
             </button>
           </div>
-          <select
-            name="accountType"
-            required
-            onChange={handleChange}
-            className="p-2 border rounded-md bg-transparent"
-          >
-            <option value="Client">Client</option>
-            <option value="Admin">Admin</option>
-          </select>
+        
 
           {/* Error Message */}
           {error && <p className="text-red-500 text-center">{error}</p>}

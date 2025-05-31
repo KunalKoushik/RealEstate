@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import Login from './Components/Login';
 import DashboardPage from './Pages/DashboardPage';
-import Redirect from './Redirect';
+
 
 const Admin = () => {
   const [accountType, setAccountType] = useState(null);
@@ -35,10 +35,13 @@ const Admin = () => {
 
   return (
     <DarkModeProvider>
-      <Routes>
-        <Route path="/" element={userToken ? <Navigate to="/admin/dashboard" /> : <Login />} />
-        <Route path="/admin/dashboard" element={accountType === "Admin" ? <DashboardPage /> : <Redirect />} />
-      </Routes>
+      {/* <Routes>
+
+       <Route path="*" element={<DashboardPage/>} />
+
+      </Routes> */}
+      <DashboardPage/>
+      
     </DarkModeProvider>
   );
 };
