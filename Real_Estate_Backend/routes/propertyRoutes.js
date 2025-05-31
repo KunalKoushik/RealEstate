@@ -8,6 +8,7 @@ const {countTotalProperties,
     getPropertyById,
     updateProperty,
     deleteProperty,buyProperty,
+    getUserProperties,
     filterProperties } = require("../controllers/PropertyController")
 const router = express.Router();
 

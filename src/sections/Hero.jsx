@@ -24,42 +24,7 @@ const Hero = () => {
     });
   }, []);
 
-  // // Handle form submission
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   // Simple form validation
-  //   const validationErrors = {};
-  //   if (!location) validationErrors.location = "Location is required";
-  //   if (!propertyType) validationErrors.propertyType = "Type is required";
-  //   if (!category) validationErrors.category = "Category is required";
-  //   if (Object.keys(validationErrors).length > 0) {
-  //     setErrors(validationErrors);
-  //     return;
-  //   }
-
-  //   // Prepare the form data to send to the backend
-  //   const formData = {
-  //     location,
-  //     propertyType,
-  //     category,
-  //   };
-
-  //   try {
-  //     // Sending the form data to the backend
-  //     const response = await axios.post(
-  //       "http://localhost:4000/api/v1/property/filter", // Update the URL accordingly
-  //       formData
-  //     );
-
-  //     // Handle the response (e.g., update state or display results)
-
-  //     console.log(response); // Properties data
-  //     navigate("/");
-  //   } catch (error) {
-  //     console.error("Error fetching properties:", error);
-  //   }
-  // };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -110,21 +75,21 @@ const Hero = () => {
     >
       <section
         id="hero"
-        className="mt-18 h-[60vh] m-auto bg-cover bg-center rounded-xl overflow-hidden flex justify-center flex-col items-start lg:px-[10%] px-5 gap-5 z-20"
+        className="mt-18 h-[60vh] m-auto bg-cover justify-center bg-center rounded-xl overflow-hidden flex flex-col border- items-center lg:px-[10%] px-5 gap-5 z-20"
         style={{ backgroundImage: `url(${heroimg})` }}
       >
         <h1
           data-aos="zoom-in"
-          className="text-5xl text-white font-semibold lg:pr-[50%] pr-0 lg:leading-[4.5rem] leading-[3.5rem]"
+          className="text-5xl text-white font-semibold "
         >
           Find your next Home in India
         </h1>
-        <p data-aos="zoom-in" className="text-white text-lg lg:pr-[50%]">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque
-          enim est, omnis ad blanditiis ullam autem suscipit, neque laudantium
-          vel fugit dicta cum corporis voluptatibus assumenda culpa, soluta
-          perspiciatis aperiam?
-        </p>
+        <button type="button"data-aos="zoom-in"
+          className="bg-blue-600 dark:bg-blue-700 hover:bg-blue-900 text-xl p-4 text-white font-semibold rounded-xl cursor-pointer transform hover:scale-110 transition-transform duration-300" 
+          onClick={()=> {navigate('/properties')}}
+        >
+          Explore Propertirs 
+        </button>
       </section>
 
       {/* Form Section */}

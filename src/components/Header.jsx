@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import { Link as ScrollLink } from "react-scroll";
 import { useNavigate } from "react-router-dom";
 import { FaXmark, FaBuilding, FaEnvelope, FaStar } from "react-icons/fa6";
@@ -13,11 +14,17 @@ import {
 import logo from "../assets/images/logo.png";
 import { useDarkMode } from "./DarkModeContext";
 
-
 const Header = () => {
-  const navigate = useNavigate(); // Call useNavigate at the top level
+  const navigate = useNavigate();
   const { darkMode, toggleDarkMode } = useDarkMode();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+
+  }, [isLoggedIn]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -28,11 +35,9 @@ const Header = () => {
   };
 
   const handleSignupClick = () => {
-    console.log("Signup clicked"); // Debugging line
-    navigate("/account"); // Use navigate inside a function
+    navigate("/account");
   };
 
-  // Navigation items
   const navItem = [
     { link: "Home", path: "home", icon: <FaHome /> },
     { link: "About", path: "about", icon: <FaInfoCircle /> },
@@ -49,15 +54,14 @@ const Header = () => {
       } fixed w-full top-0 z-50 shadow-md transition-colors duration-300`}
     >
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        {/* Logo with Color Inversion */}
-
+        {/* Logo */}
         <img
           onClick={() => navigate("/")}
           src={logo}
           alt="Logo"
           className={`h-10 transition-all duration-300 ${
             darkMode ? "invert" : ""
-          }`}
+          } cursor-pointer`}
         />
 
         {/* Desktop Navigation */}
@@ -74,19 +78,31 @@ const Header = () => {
                 onClick={() => navigate("/")}
               >
                 {item.link}
-                
               </ScrollLink>
             </li>
           ))}
         </ul>
 
-        {/* Right Section (Icons) */}
-        <div className="hidden lg:flex space-x-4">
+        {/* Right Section */}
+        <div className="hidden lg:flex space-x-4 items-center">
           <FaPhoneAlt className="text-blue-600 size-5 cursor-pointer hover:scale-110 transition-transform duration-300" />
-          <FaUserCircle
-            onClick={handleSignupClick} // Pass the function to onClick
-            className="size-6 cursor-pointer hover:scale-110 transition-transform duration-300"
-          />
+
+          {isLoggedIn ? (
+            <button
+              onClick={() => navigate("/account")}
+              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+            >
+              <FaUserCircle className="size-5" />
+              Profile
+            </button>
+          ) : (
+            <button
+              onClick={handleSignupClick}
+              className="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-600 hover:text-white transition"
+            >
+              Login/Signup
+            </button>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -112,6 +128,7 @@ const Header = () => {
         >
           <FaXmark />
         </button>
+
         <ul className="flex flex-col space-y-6">
           {navItem.map((item, index) => (
             <li key={index} className="w-full">
@@ -130,6 +147,31 @@ const Header = () => {
               </ScrollLink>
             </li>
           ))}
+
+          {/* Dashboard/Login for Mobile */}
+          <li className="w-full">
+            {isLoggedIn ? (
+              <button
+                onClick={() => {
+                  navigate("/account");
+                  closeMenu();
+                }}
+                className="flex items-center gap-2 px-6 py-3 w-full text-left hover:bg-blue-700 text-white bg-blue-600 rounded transition"
+              >
+                <FaUserCircle className="size-5" /> profile
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  handleSignupClick();
+                  closeMenu();
+                }}
+                className="px-6 py-3 w-full text-left border border-blue-600 text-blue-600 rounded hover:bg-blue-600 hover:text-white transition"
+              >
+                Login/Signup
+              </button>
+            )}
+          </li>
         </ul>
       </div>
     </header>

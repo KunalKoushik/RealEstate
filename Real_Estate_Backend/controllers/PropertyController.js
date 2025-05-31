@@ -107,28 +107,57 @@ exports.createProperty = async (req, res) => {
 };
 
 // ✅ Get all properties
+// exports.getAllProperties = async (req, res) => {
+//   try {
+//     const properties = await Property.find()
+//       .populate("user", "firstName lastName email ")
+//       .populate("ownerHistory", "firstName lastName email") // Populating user details (name, email)
+//       .populate({
+//         path: "RatingAndReview", // Populating the reviews field that holds references to RatingAndReview
+//         select: "rating review user", // Selecting fields to return (rating, review, and user)
+//         populate: {
+//           path: "user", // Populating the user inside each review
+//           select: "firstName lastName email", // Select the user details (name, email)
+//         },
+//       });
+//     res.status(200).json({ success: true, properties: properties });
+//   } catch (error) {
+//     console.error("Error fetching properties:", error);
+//     res.status(500).json({
+//       success: false,
+//       message: "Internal Server Error",
+//       error: error.message,
+//     });
+//   }
+// };
 exports.getAllProperties = async (req, res) => {
-  try {
-    const properties = await Property.find()
-      .populate("user", "firstName lastName email ")
-      .populate("ownerHistory", "firstName lastName email") // Populating user details (name, email)
-      .populate({
-        path: "RatingAndReview", // Populating the reviews field that holds references to RatingAndReview
-        select: "rating review user", // Selecting fields to return (rating, review, and user)
-        populate: {
-          path: "user", // Populating the user inside each review
-          select: "firstName lastName email", // Select the user details (name, email)
-        },
-      });
-    res.status(200).json({ success: true, properties: properties });
-  } catch (error) {
-    console.error("Error fetching properties:", error);
-    res.status(500).json({
-      success: false,
-      message: "Internal Server Error",
-      error: error.message,
-    });
-  }
+    try {
+        const properties = await Property.find({})
+            .populate("user", "firstName lastName email") // Populate the user who listed the property
+            .populate({
+                path: "RatingAndReview",
+                populate: {
+                    path: "user", // Populate the user who wrote the review
+                    select: "firstName lastName", // Select desired user fields for reviews
+                },
+            })
+            .populate({
+                path: "ownerHistory", // Populate the owner history
+                select: "firstName lastName email", // Select desired user fields for owner history
+            });
+
+        res.status(200).json({
+            success: true,
+            properties,
+        });
+    } catch (error) {
+        console.error("Error fetching all properties:", error);
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch properties",
+            error: error.message,
+        });
+    }
 };
 
 // ✅ Get a single property by ID
@@ -342,6 +371,37 @@ exports.filterProperties = async (req, res) => {
       message: "Failed to fetch properties.",
     });
   }
+};
+
+// Get properties listed by the authenticated user
+exports.getUserProperties = async (req, res) => {
+    try {
+        const userId = req.user.id; // Get user ID from the auth middleware
+        // Find properties where the 'user' field matches the authenticated userId
+        const properties = await Property.find({ user: userId })
+                                        .populate("user", "firstName lastName email") // Populate user info
+                                        .populate("reviews"); // If you want to show reviews
+
+        if (!properties || properties.length === 0) {
+            return res.status(200).json({
+                success: true,
+                message: "No properties listed by this user.",
+                properties: []
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            properties,
+        });
+    } catch (error) {
+        console.error("Error fetching user's listed properties:", error);
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch user's listed properties",
+            error: error.message,
+        });
+    }
 };
 
 // Controller function to filter properties based on input

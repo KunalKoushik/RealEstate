@@ -24,8 +24,8 @@ exports.getProfile = async (req, res) => {
           path: "user",
           select: "firstName lastName"
         }
-      });
-
+      })
+      .lean();
     if (!profile) {
       // Create a profile if it doesn't exist
       const newProfile = await Profile.createForUser(userId);

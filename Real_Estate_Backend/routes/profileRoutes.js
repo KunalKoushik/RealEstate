@@ -11,10 +11,10 @@ const {
 } = require("../controllers/profileController");
 
 // Get user profile
-router.get("/", auth, getProfile);
+router.get("/:id", auth, getProfile);
 
 // Update profile
-router.put("/", auth, updateProfile);
+router.put("/:id", auth, updateProfile);
 
 // Upload profile picture
 router.post("/picture", auth, uploadProfilePicture);
