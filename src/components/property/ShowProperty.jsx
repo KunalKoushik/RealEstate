@@ -43,7 +43,7 @@ const ShowProperty = () => {
       const response = await axios.get(
         "http://localhost:4000/api/v1/property/getAllProperties"
       );
-      console.log(response)
+      setProperties(response.data.properties || []); // Ensure properties is an array
     } catch (err) {
       console.error("Failed to fetch properties:", err);
       setError(
