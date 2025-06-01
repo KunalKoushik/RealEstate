@@ -32,6 +32,7 @@ router.get("/getPropertyById:id", getPropertyById);
 router.put("/updateProperty", updateProperty);
 router.delete("/deleteProperty", deleteProperty);
 
+router.get('/user/properties',auth, getUserProperties);
 router.post('/buy/:propertyId', auth,buyProperty);
 
 module.exports = router;

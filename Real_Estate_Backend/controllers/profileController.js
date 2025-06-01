@@ -17,6 +17,7 @@ exports.getProfile = async (req, res) => {
           select: "firstName lastName"
         }
       })
+      .populate("user")
       .populate({
         path: "purchaseHistory.property",
         select: "title price images location",

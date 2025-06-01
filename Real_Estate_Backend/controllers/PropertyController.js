@@ -373,14 +373,19 @@ exports.filterProperties = async (req, res) => {
   }
 };
 
-// Get properties listed by the authenticated user
 exports.getUserProperties = async (req, res) => {
     try {
+        // Ensure req.user is populated by your authentication middleware
+        // This error "Cannot read properties of undefined (reading 'id')"
+        // means req.user is undefined.
+        // Your authentication middleware must run BEFORE this controller.
         const userId = req.user.id; // Get user ID from the auth middleware
+
         // Find properties where the 'user' field matches the authenticated userId
         const properties = await Property.find({ user: userId })
                                         .populate("user", "firstName lastName email") // Populate user info
-                                        .populate("reviews"); // If you want to show reviews
+                                        .populate("RatingAndReview") // If you want to show reviews
+                                        .populate("ownerHistory"); // If you want to show reviews
 
         if (!properties || properties.length === 0) {
             return res.status(200).json({

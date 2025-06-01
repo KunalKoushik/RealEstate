@@ -24,7 +24,7 @@ const Header = () => {
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
 
-  }, [isLoggedIn]);
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);

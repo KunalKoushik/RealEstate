@@ -55,20 +55,22 @@ const Profile = () => {
       // --- Fetch Listed Properties ---
       // This requires a dedicated backend endpoint to fetch properties listed by the user.
       // Ensure you've added the necessary route and controller as shown in the backend section below.
-      try {
-        const listedPropertiesResponse = await axios.get(
-          `http://localhost:4000/api/v1/property/user`, // This endpoint needs to be implemented in your backend
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setListedProperties(listedPropertiesResponse.data.properties || []);
-      } catch (listedError) {
-        console.warn("Could not fetch user's listed properties. Make sure the endpoint /api/v1/property/user exists and is correctly implemented.", listedError);
-        setListedProperties([]); // Default to empty array if fetch fails
+     try {
+    // The userId is no longer passed in the URL, as the backend will derive it
+    // from the authenticated user's token via the 'protect' middleware.
+    const listedPropertiesResponse = await axios.get(
+      `http://localhost:4000/api/v1/property/user/properties`, // Updated endpoint
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
+    );
+    setListedProperties(listedPropertiesResponse.data.properties || []);
+} catch (listedError) {
+    console.warn("Could not fetch user's listed properties. Make sure the endpoint /api/v1/property/user/properties exists and is correctly implemented with authentication.", listedError);
+    setListedProperties([]); // Default to empty array if fetch fails
+}
 
     } catch (error) {
       console.error("Error fetching profile data:", error);
@@ -115,15 +117,16 @@ const Profile = () => {
         darkMode ? "bg-black text-white" : "bg-gray-100 text-black"
       }`}
     >
-      <div className="container mx-auto py-8 px-4">
+      <div className="container  py-8 px-4">
         {/* Profile Header */}
         <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-8">
           <div className="w-32 h-32 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
+            {console.log(userData)}
             {userData?.profilePicture ? (
               <img
-                src={userData.profilePicture}
+                src={userData.user.image}
                 alt="Profile"
-                className="w-full h-full object-cover"
+                className="w-32  h-32 "
               />
             ) : (
               <FaUser className="text-6xl text-gray-500" />
@@ -137,14 +140,17 @@ const Profile = () => {
             <p className="text-lg text-gray-500">{userData?.user?.email}</p>
             {/* Phone is directly on the Profile model */}
             <p className="text-lg">
-              {userData?.phone || "No phone number provided"}
+              {userData?.phone || "N/A"}
             </p>
-            <button
+            <div className="flex  items-center gap-4 mt-2">
+              <button
               onClick={handleEditProfile}
-              className="mt-4 flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+              className=" flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
             >
               <FaEdit /> Edit Profile
             </button>
+            <Logout />
+            </div>
           </div>
         </div>
 
@@ -187,7 +193,7 @@ const Profile = () => {
         {/* Tab Content */}
         <div className="mb-8">
           {activeTab === "profile" && (
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+            <div className=" bg-white  p-6 rounded-lg shadow">
               <h2 className="text-2xl font-bold mb-4">Personal Information</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -239,12 +245,12 @@ const Profile = () => {
                   {listedProperties.map((property) => (
                     <div
                       key={property._id}
-                      className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden cursor-pointer hover:shadow-lg transition"
+                      className="bg-white  rounded-lg shadow overflow-hidden cursor-pointer hover:shadow-lg transition"
                       onClick={() => navigate(`/property/${property._id}`)}
                     >
                       <div
                         className="h-48 bg-cover bg-center"
-                        style={{ backgroundImage: `url(${property.images && property.images.length > 0 ? property.images[0] : 'https://via.placeholder.com/400x250?text=No+Image'})` }}
+                        style={{ backgroundImage: `url(${property.images && property.images.length > 0 ? property.images : 'https://via.placeholder.com/400x250?text=No+Image'})` }}
                       ></div>
                       <div className="p-4">
                         <h3 className="font-bold text-lg">{property.title}</h3>
@@ -266,7 +272,7 @@ const Profile = () => {
                   ))}
                 </div>
               ) : (
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow text-center">
+                <div className="bg-white  p-6 rounded-lg shadow text-center">
                   <p>You haven't listed any properties yet.</p>
                   <button
                     className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
@@ -287,7 +293,7 @@ const Profile = () => {
                   {purchasedProperties.map((purchaseItem) => ( // Renamed to purchaseItem for clarity
                     <div
                       key={purchaseItem._id} // Use purchaseItem._id for key
-                      className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden cursor-pointer hover:shadow-lg transition"
+                      className="bg-white rounded-lg shadow overflow-hidden cursor-pointer hover:shadow-lg transition"
                       onClick={() => navigate(`/property/${purchaseItem.property._id}`)}
                     >
                       <div
@@ -318,7 +324,7 @@ const Profile = () => {
                   ))}
                 </div>
               ) : (
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow text-center">
+                <div className="bg-white  p-6 rounded-lg shadow text-center">
                   <p>You haven't purchased any properties yet.</p>
                   <button
                     className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
@@ -336,7 +342,7 @@ const Profile = () => {
               <h2 className="text-2xl font-bold mb-4">My Reviews</h2>
               {/* Reviews content would go here. You'll need to fetch reviews associated with the user. */}
               {/* Assuming you'll have an endpoint like /api/v1/review/userReviews */}
-              <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow text-center">
+              <div className="bg-white p-6 rounded-lg shadow text-center">
                 <p>Your reviews will appear here.</p>
                 <p className="text-sm text-gray-500 mt-2">
                   (Review functionality needs a backend endpoint and frontend implementation.)
@@ -345,8 +351,6 @@ const Profile = () => {
             </div>
           )}
         </div>
-
-        <Logout />
       </div>
     </div>
   );

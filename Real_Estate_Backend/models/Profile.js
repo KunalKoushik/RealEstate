@@ -17,7 +17,7 @@ const profileSchema = new mongoose.Schema({
     default: function() {
       // Default profile picture using user's initials
       const user = this._user || {};
-      return `https://api.dicebear.com/5.x/initials/svg?seed=${user.firstName || ''} ${user.lastName || ''}`;
+      return `https://api.dicebear.com/5.x/initials/svg?seed=${user.firstName} ${user.lastName}`;
     }
   },
   socialLinks: {

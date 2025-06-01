@@ -58,7 +58,7 @@ const Login = () => {
         console.log("token", token)
 
       const decodedToken = jwtDecode(token); // Decode JWT
-        console.log(decodedToken.accountType)
+      
         //store token in local storage
         localStorage.setItem("token",token);
         localStorage.setItem("userId",user._id);
