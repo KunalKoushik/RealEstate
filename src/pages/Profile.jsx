@@ -38,7 +38,7 @@ const Profile = () => {
 
       // Fetch user's profile which includes populated favorites and purchaseHistory
       const profileResponse = await axios.get(
-        `http://localhost:4000/api/v1/profile/${userId}`,
+        `https://realestate-lxeu.onrender.com/api/v1/profile/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -59,7 +59,7 @@ const Profile = () => {
     // The userId is no longer passed in the URL, as the backend will derive it
     // from the authenticated user's token via the 'protect' middleware.
     const listedPropertiesResponse = await axios.get(
-      `http://localhost:4000/api/v1/property/user/properties`, // Updated endpoint
+      `https://realestate-lxeu.onrender.com/api/v1/property/user/properties`, // Updated endpoint
       {
         headers: {
           Authorization: `Bearer ${token}`,

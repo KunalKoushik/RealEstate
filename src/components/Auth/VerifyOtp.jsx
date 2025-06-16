@@ -49,7 +49,7 @@ const VerifyOtp = () => {
       const SignUpdata = { ...formData, enteredOtp };
       // Step 2: If OTP is valid, proceed with signup
       const signupResponse = await axios.post(
-        "http://localhost:4000/api/v1/auth/signup",
+        "https://realestate-lxeu.onrender.com/api/v1/auth/signup",
         {
           ...formData, // Send the form data
           otp: enteredOtp, // Include the OTP in the signup request

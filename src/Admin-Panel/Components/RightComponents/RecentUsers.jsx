@@ -7,7 +7,7 @@ const RecentUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/api/v1/admin/users");
+        const res = await axios.get("https://realestate-lxeu.onrender.com/api/v1/admin/users");
       
         setUsers(res.data.users); // assuming the API returns an array of users directly
       } catch (error) {

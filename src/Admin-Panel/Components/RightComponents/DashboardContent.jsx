@@ -10,8 +10,8 @@ const DashboardContent = () => {
     const fetchCounts = async () => {
       try {
         const [userRes, propertyRes] = await Promise.all([
-          axios.get("http://localhost:4000/api/v1/admin/countUsers"),
-          axios.get("http://localhost:4000/api/v1/admin/getAllPropertiesCount"),
+          axios.get("https://realestate-lxeu.onrender.com/api/v1/admin/countUsers"),
+          axios.get("https://realestate-lxeu.onrender.com/api/v1/admin/getAllPropertiesCount"),
         ]);
 
         setUserCount(userRes.data.totalUsers || 0);

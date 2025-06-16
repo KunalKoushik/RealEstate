@@ -15,7 +15,7 @@ const BuyProperty = ({ propertyId }) => {
       const token = localStorage.getItem('token');
       console.log("first:", token);
       const response = await axios.post(
-        `http://localhost:4000/api/v1/property/buy/${propertyId}`,
+        `https://realestate-lxeu.onrender.com/api/v1/property/buy/${propertyId}`,
         {},
         {
           headers: {

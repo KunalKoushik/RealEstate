@@ -48,7 +48,7 @@ const Hero = () => {
     try {
       // Sending the form data to the backend
       const response = await axios.post(
-        "http://localhost:4000/api/v1/property/filter", // Update the URL accordingly
+        "https://realestate-lxeu.onrender.com/api/v1/property/filter", // Update the URL accordingly
         formData
       );
 

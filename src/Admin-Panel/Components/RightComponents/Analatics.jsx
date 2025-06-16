@@ -12,7 +12,7 @@ const Analatics = () => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4000/api/v1/analytics/user-growth");
+          "https://realestate-lxeu.onrender.com/api/v1/analytics/user-growth");
         setUserData(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error);

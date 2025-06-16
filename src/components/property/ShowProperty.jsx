@@ -41,7 +41,7 @@ const ShowProperty = () => {
     try {
       setLoading(true); // Set loading true before fetching
       const response = await axios.get(
-        "http://localhost:4000/api/v1/property/getAllProperties"
+        "https://realestate-lxeu.onrender.com/api/v1/property/getAllProperties"
       );
       setProperties(response.data.properties || []); // Ensure properties is an array
     } catch (err) {
@@ -137,7 +137,7 @@ const ShowProperty = () => {
 
     try {
       // Send the review and rating to the backend
-      await axios.post("http://localhost:4000/api/v1/review/create", {
+      await axios.post("https://realestate-lxeu.onrender.com/api/v1/review/create", {
         user: userId, // User ID from localStorage
         PropertySchema: propertyId, // Make sure your backend expects this field name
         rating,

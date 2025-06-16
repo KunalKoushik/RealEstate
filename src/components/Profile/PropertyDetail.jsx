@@ -20,7 +20,7 @@ const PropertyDetail = () => {
     const fetchProperty = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/v1/property/getProperty/${id}`
+          `https://realestate-lxeu.onrender.com/api/v1/property/getProperty/${id}`
         );
         setProperty(response.data.property);
         setLoading(false);
@@ -45,7 +45,7 @@ const PropertyDetail = () => {
       }
 
       await axios.post(
-        "http://localhost:4000/api/v1/review/create",
+        "https://realestate-lxeu.onrender.com/api/v1/review/create",
         {
           user: userId,
           PropertySchema: id,

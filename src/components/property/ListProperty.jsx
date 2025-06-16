@@ -81,7 +81,7 @@ const ListProperty = () => {
         throw new Error("No authorization token found. Please log in.");
 
       await axios.post(
-        "http://localhost:4000/api/v1/property/createProperty",
+        "https://realestate-lxeu.onrender.com/api/v1/property/createProperty",
         formData,
         {
           headers: {

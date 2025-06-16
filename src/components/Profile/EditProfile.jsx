@@ -31,7 +31,7 @@ const EditProfile = () => {
         }
 
         const response = await axios.get(
-          `http://localhost:4000/api/v1/user/profile/${userId}`,
+          `https://realestate-lxeu.onrender.com/api/v1/user/profile/${userId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -99,7 +99,7 @@ const EditProfile = () => {
       }
 
       await axios.put(
-        `http://localhost:4000/api/v1/user/updateProfile/${userId}`,
+        `https://realestate-lxeu.onrender.com/api/v1/user/updateProfile/${userId}`,
         formData,
         {
           headers: {

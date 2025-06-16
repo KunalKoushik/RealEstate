@@ -67,7 +67,7 @@ const Properties = () => {
     const fetchProperties = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4000/api/v1/property/getAllProperties"
+          "https://realestate-lxeu.onrender.com/api/v1/property/getAllProperties"
         );
         setProperties(response.data.properties); // Set the fetched properties in the state
       } catch (error) {

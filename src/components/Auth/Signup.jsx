@@ -63,7 +63,7 @@ const [loading, setLoading] = useState(false); // State to handle loading state
     try {
       // Step 1: Send OTP to the user's email
       const otpResponse = await axios.post(
-        "http://localhost:4000/api/v1/auth/send-otp",
+        "https://realestate-lxeu.onrender.com/api/v1/auth/send-otp",
         {
           email: formData.email, // Send the email to fetch the OTP
         },

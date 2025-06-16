@@ -23,7 +23,7 @@ const Favorites = () => {
         }
 
         const response = await axios.get(
-          `http://localhost:4000/api/v1/user/favorites/${userId}`,
+          `https://realestate-lxeu.onrender.com/api/v1/user/favorites/${userId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -53,7 +53,7 @@ const Favorites = () => {
       }
 
       await axios.post(
-        `http://localhost:4000/api/v1/user/toggleFavorite/${userId}`,
+        `https://realestate-lxeu.onrender.com/api/v1/user/toggleFavorite/${userId}`,
         { propertyId },
         {
           headers: {

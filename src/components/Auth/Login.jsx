@@ -46,7 +46,7 @@ const Login = () => {
 
     try {
       // Call the backend login API
-      const response = await axios.post("http://localhost:4000/api/v1/auth/login", {
+      const response = await axios.post("https://realestate-lxeu.onrender.com/api/v1/auth/login", {
         email: formData.email,
         password: formData.password,
         accountType: formData.accountType,
