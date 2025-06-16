@@ -106,7 +106,7 @@ const Profile = () => {
       return (
           <div className={`flex flex-col justify-center items-center h-screen ${darkMode ? "bg-black text-white" : "bg-white"}`}>
               <p>Failed to load profile. Please ensure you are logged in.</p>
-              <button onClick={() => navigate("/account")} className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Go to Login</button>
+              <button onClick={() => navigate("/")} className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Go to Login</button>
           </div>
       );
   }

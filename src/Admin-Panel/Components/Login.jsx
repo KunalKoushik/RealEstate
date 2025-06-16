@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDarkMode } from "../../src/components/DarkModeContext";
+import { useDarkMode } from "./DarkModeContext";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { FaEye, FaEyeSlash } from "react-icons/fa";

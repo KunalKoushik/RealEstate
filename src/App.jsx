@@ -15,7 +15,7 @@ import FilterContent from "./components/property/FilterContent";
 import PropertyDetail from "./components/Profile/PropertyDetail";
 import EditProfile from "./components/Profile/EditProfile";
 import Favorites from "./components/Profile/Favorites";
-import Admin from "../Admin-Panel/Admin";
+import Admin from "./Admin-Panel/Admin";
 
 function App() {
   let email = "";
