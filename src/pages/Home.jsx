@@ -4,7 +4,7 @@ import Contact from "../sections/Contact";
 import Hero from "../sections/Hero";
 import PopularAreas from "../sections/PopularAreas";
 import Properties from "../sections/Properties";
-import Services from "../sections/services";
+import Services from "../sections/Services";
 
 const Home = () => {
   return (
